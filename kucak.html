@@ -2,52 +2,310 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>KucakBot 3000</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kucak'ın Günü 🎉</title>
   <style>
     body {
+      margin: 0;
       background-color: #0d1117;
-      color: #c9d1d9;
+      color: white;
       font-family: 'Courier New', monospace;
+      overflow: hidden;
       text-align: center;
-      padding: 50px;
     }
-    h1 {
-      font-size: 3rem;
-      color: #58a6ff;
+
+    .scene {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
     }
-    .button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #21262d;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      border-radius: 8px;
+
+    .kucak-img {
+      position: absolute;
+      width: 200px;
+      border-radius: 50%;
+      bottom: 20%;
+      left: 10%;
+      opacity: 0;
+      animation: fadeIn 1s ease-out 0.5s forwards;
+      z-index: 2;
     }
-    .bot-message {
-      margin-top: 30px;
+    .kucak2-img {
+      position: absolute;
+      width: 180px; /* Büyütüldü */
+      border-radius: 50%;
+      bottom: 8%;   /* Aşağı çekildi */
+      left: 10%;
+      opacity: 0;
+      animation: fadeIn 1s ease-out 1s forwards;
+      z-index: 2;
+    }
+
+    .speech {
+      position: absolute;
+      bottom: 33%;
+      left: 30%;
+      max-width: 220px;
+      padding: 15px 20px;
+      background: #ffffff;
+      color: #000;
       font-size: 1.2rem;
-      color: #8b949e;
+      border-radius: 15px;
+      opacity: 0;
+      transform: scale(0.8);
+      animation: showSpeech 1s ease-out 1.5s forwards;
+      z-index: 3;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      display: inline-block;
+    }
+
+    .speech::after {
+      content: '';
+      position: absolute;
+      left: -20px;
+      bottom: 28px;
+      width: 0;
+      height: 0;
+      border: 15px solid transparent;
+      border-right-color: #ffffff;
+      border-left: 0;
+      margin-bottom: -15px;
+      margin-left: -15px;
+      z-index: 4;
+    }
+
+    .gif-next-to-speech {
+      position: absolute;
+      bottom: 40%;
+      left: 55%;
+      width: 140px;
+      opacity: 0;
+      animation: fadeIn 1s ease-out 1.5s forwards;
+      z-index: 3;
+    }
+
+    .gif-new {
+      position: absolute;
+      bottom: 56%;
+      left: 10%;
+      width: 130px;
+      opacity: 0;
+      animation: fadeIn 1s ease-out 1.7s forwards;
+      z-index: 4;
+    }
+
+    .gif-latest {
+      position: absolute;
+      bottom: 62%;
+      left: 40%;
+      width: 120px;
+      opacity: 0;
+      animation: fadeIn 1s ease-out 1.9s forwards;
+      z-index: 4;
+    }
+
+    .gif-between-calendar-message {
+      position: absolute;
+      right: 12%;
+      bottom: 60%;
+      width: 120px;
+      opacity: 0;
+      animation: fadeIn 1s ease-out 5s forwards;
+      z-index: 4;
+    }
+
+    .gif-top-left {
+      position: absolute;
+      top: 5%;
+      left: 5%;
+      width: 150px;
+      opacity: 0;
+      animation: fadeIn 1s ease-out 1.3s forwards;
+      z-index: 5;
+    }
+
+    .calendar {
+      position: absolute;
+      right: 10%;
+      bottom: 10%;
+      width: 250px;
+      opacity: 0;
+      transform: scale(0.8);
+      animation: showCalendar 1s ease-out 3s forwards, zoomIn 3s ease-out 4s forwards;
+      transform-origin: center center;
+      z-index: 1;
+    }
+
+    .final-message {
+      position: absolute;
+      top: 15%;
+      right: 10%;
+      width: 220px;
+      font-size: 2.4rem;
+      color: #58a6ff;
+      opacity: 0;
+      animation: showMessage 1s ease-out 7s forwards;
+      z-index: 5;
+      line-height: 1.2;
+      white-space: normal;
+      text-align: right;
+      font-weight: 600;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes showSpeech {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes showCalendar {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes zoomIn {
+      to {
+        transform: scale(1.8);
+      }
+    }
+
+    @keyframes showMessage {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .kucak-img {
+        width: 120px;
+        bottom: 15%;
+        left: 5%;
+      }
+      .kucak2-img {
+        width: 110px;
+        bottom: 4%;
+        left: 5%;
+      }
+
+      .speech {
+        bottom: 28%;
+        left: 28%;
+        max-width: 180px;
+        font-size: 1rem;
+        padding: 10px 15px;
+      }
+
+      .speech::after {
+        bottom: 23px;
+      }
+
+      .gif-next-to-speech {
+        bottom: 35%;
+        left: 50%;
+        width: 100px;
+      }
+
+      .gif-new {
+        bottom: 50%;
+        left: 5%;
+        width: 90px;
+      }
+
+      .gif-latest {
+        bottom: 56%;
+        left: 35%;
+        width: 90px;
+      }
+
+      .gif-between-calendar-message {
+        right: 7%;
+        bottom: 55%;
+        width: 90px;
+      }
+
+      .gif-top-left {
+        top: 3%;
+        left: 3%;
+        width: 120px;
+      }
+
+      .calendar {
+        width: 150px;
+        right: 5%;
+        bottom: 5%;
+        animation-duration: 2s, 3s;
+      }
+
+      .final-message {
+        font-size: 1.6rem;
+        top: 12%;
+        right: 5%;
+        width: 160px;
+        line-height: 1.1;
+      }
     }
   </style>
 </head>
 <body>
 
-  <h1>YATIN ARTIK!</h1>
-  <p>Ben KucakBot 3000'im. Görevim: Gece 03:00'te herkesi yatırmak.</p>
-  
-  <div class="bot-message">
-    <p><strong>Kucak’ın Doğum Günü Modu Aktif!</strong></p>
-    <p>Bugün istisna yapılıyor: Yatmak serbest, kod yazmak da serbest 🤖🎉</p>
+<div class="scene">
+  <img src="kucak.png" alt="Kucak" class="kucak-img" />
+  <img src="kucak2.png" alt="Kucak 2" class="kucak2-img" />
+  <div class="speech">Yatın artık!</div>
+
+  <div class="gif-top-left">
+    <div class="tenor-gif-embed" data-postid="15210582820378482946" data-share-method="host" data-aspect-ratio="1" data-width="100%">
+      <a href="https://tenor.com/view/cat-party-rainbow-cat-rainbow-dance-cat-dancing-cat-gif-15210582820378482946">Cat Party Rainbow GIF</a> from 
+      <a href="https://tenor.com/search/cat+party-gifs">Cat Party GIFs</a>
+    </div>
   </div>
 
-  <button class="button" onclick="alert('Bu özellik hala geliştiriliyor. Kucak şimdi uyuyor olabilir.')">Gece Moduna Geç</button>
-
-  <div style="margin-top: 50px; font-size: 0.9rem; color: #484f58;">
-    <p>Hazırlayan: Kucak'ın uyumayan dostu 😴</p>
+  <div class="gif-next-to-speech">
+    <div class="tenor-gif-embed" data-postid="6997856904020830598" data-share-method="host" data-aspect-ratio="1" data-width="100%">
+      <a href="https://tenor.com/view/cat-gif-6997856904020830598">Cat GIF</a> from 
+      <a href="https://tenor.com/search/cat-gifs">Cat GIFs</a>
+    </div>
   </div>
+
+  <div class="gif-new">
+    <div class="tenor-gif-embed" data-postid="15291519990855066134" data-share-method="host" data-aspect-ratio="1" data-width="100%">
+      <a href="https://tenor.com/view/cat-cat-meme-cat-bopping-head-cat-dancing-cat-bopping-gif-15291519990855066134">Cat Cat Meme Sticker</a> from 
+      <a href="https://tenor.com/search/cat-stickers">Cat Stickers</a>
+    </div>
+  </div>
+
+  <div class="gif-latest">
+    <div class="tenor-gif-embed" data-postid="18061716183680178282" data-share-method="host" data-aspect-ratio="0.561497" data-width="100%">
+      <a href="https://tenor.com/view/dancing-white-cat-dance-sticker-gif-18061716183680178282">Dancing White Cat Dance Sticker</a> from 
+      <a href="https://tenor.com/search/dancing+white+cat-stickers">Dancing White Cat Stickers</a>
+    </div>
+  </div>
+
+  <img src="takvim.png" alt="Takvim" class="calendar" />
+
+  <div class="gif-between-calendar-message">
+    <div class="tenor-gif-embed" data-postid="13654819601460667652" data-share-method="host" data-aspect-ratio="0.748299" data-width="100%">
+      <a href="https://tenor.com/view/cat-dancing-dancing-cat-belly-dance-gif-13654819601460667652">Cat Dancing Sticker</a> from 
+      <a href="https://tenor.com/search/cat-stickers">Cat Stickers</a>
+    </div>
+  </div>
+
+  <div class="final-message">
+    Doğum günün <br />
+    kutlu olsun Kucak! 🎉
+  </div>
+</div>
+
+<script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 
 </body>
 </html>
